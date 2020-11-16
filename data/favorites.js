@@ -2,13 +2,46 @@ module.exports = [
   {
     name: 'Portland',
     city_api_id: 32,
-    years: "2000:2005",
-    aggregation: "monthly"
+    years: "1950",
+    aggregation: "monthly",
+    data: {
+      "1950-01": {
+        max: 51.20
+      }
+    },
+    "1950-02": {
+      max: 56.30
+    },
+    "1950-03": {
+      max: 59.57
+    },
+    "1950-04": {
+      max: 67.87
+    },
+    "1950-05": {
+      max: 73.81
+    },
+    "1950-06": {
+      max: 78.65
+    },
+    "1950-07": {
+      max: 82.89
+    },
+    "1950-08": {
+      max: 85.31
+    },
+    "1950-09": {
+      max: 80.80
+    },
+    "1950-10": {
+      max: 73.09
+    },
+    "1950-11": {
+      max: 60.03
+    },
+    "1950-12": {
+      max: 53.97
+    }
   },
-  {
-    name: 'Portland',
-    city_api_id: 32,
-    years: "1950:2005",
-    aggregation: "monthly"
-  },
+
 ];
