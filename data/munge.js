@@ -1,10 +1,11 @@
-function mungeTemps() {
+function mungeTemps(temp_data, month_param) {
   return {
-    // data.keys(): temp_data.month,
-    // latitude: temp_data.year,
-    // longitude: temp_data.max_temp,
-    // longitude: temp_data.min_temp
-
+    city_api_id: temp_data.city.id,
+    name: temp_data.city.properties.name,
+    month: Object.keys(temp_data.data).filter(key => key.slice(-2) === month_param).reduce((obj, key) => {
+      obj[key] = temp_data.data[key];
+      return obj;
+    }, {}),
   };
 }
 module.exports = {
