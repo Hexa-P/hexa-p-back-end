@@ -1,6 +1,6 @@
 const client = require('../lib/client');
 // import our seed data:
-const favorites = require('./favorites.js');
+const temps = require('./temps.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -18,26 +18,26 @@ async function run() {
                       VALUES ($1, $2)
                       RETURNING *;
                   `,
-          [user.email, user.hash]);
+        [user.email, user.hash]);
       })
     );
 
     const user = users[0].rows[0];
 
     await Promise.all(
-      favorites.map(fave => {
+      temps.map(pdx => {
         return client.query(`
-                    INSERT INTO fave (name, city_api_id, years, aggregation, owner_id)
-                    VALUES ($1, $2, $3, $4, $5);
+                    INSERT INTO temps (year, january, february, march, april, may, june, july, august, september, october, november, december, annual)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
                 `,
-          [fave.name, fave.city_api_id, fave.years, fave.aggregation, user.id]);
+        [pdx.year, pdx.january, pdx.february, pdx.march, pdx.april, pdx.may, pdx.june, pdx.july, pdx.august, pdx.september, pdx.october, pdx.november, pdx.december, pdx.annual]);
       })
     );
 
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch (err) {
+  catch(err) {
     console.log(err);
   }
   finally {

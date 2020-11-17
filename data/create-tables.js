@@ -11,25 +11,33 @@ async function run() {
     await client.connect();
 
     // run a query to create tables
-    await client.query(`s
+    await client.query(`
                 CREATE TABLE users (
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );           
-                CREATE TABLE favorites (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(512) NOT NULL,
-                    city_api_id INTEGER NOT NULL,
-                    years INTEGER NOT NULL,
-                    aggregation VARCHAR(512) NOT NULL,
-                    owner_id INTEGER NOT NULL REFERENCES users(id)
+                CREATE TABLE temps (
+                    year INTEGER NOT NULL,
+                    january FLOAT(10) NOT NULL,
+                    february FLOAT(10) NOT NULL,
+                    march FLOAT(10) NOT NULL,
+                    april FLOAT(10) NOT NULL,
+                    may FLOAT(10) NOT NULL,
+                    june FLOAT(10) NOT NULL,
+                    july FLOAT(10) NOT NULL,
+                    august FLOAT(10) NOT NULL,
+                    september FLOAT(10) NOT NULL,
+                    october FLOAT(10) NOT NULL,
+                    november FLOAT(10) NOT NULL,
+                    december FLOAT(10) NOT NULL,
+                    annual FLOAT(10) NOT NULL
             );
         `);
 
     console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch (err) {
+  catch(err) {
     // problem? let's see the error...
     console.log(err);
   }
