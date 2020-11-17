@@ -10,6 +10,17 @@ function mungeTemps(temp_data, month_param) {
       }, {}),
   };
 }
+function mungeCities(city_data) {
+  const mapThrough = city_data.features.map((feature) => { return {
+    city_api_id: feature.id,
+    name: feature.properties.name,
+    coordinates: feature.geometry.coordinates
+  };
+  });
+
+  return mapThrough;
+}
 module.exports = {
-  mungeTemps
+  mungeTemps,
+  mungeCities
 };

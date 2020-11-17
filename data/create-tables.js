@@ -32,7 +32,7 @@ async function run() {
                     november FLOAT(10) NOT NULL,
                     december FLOAT(10) NOT NULL,
                     annual FLOAT(10) NOT NULL
-            );
+                );
         `);
 
     console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());
