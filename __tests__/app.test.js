@@ -31,35 +31,74 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('posts and returns Jon/s user_profile', async() => {
 
-      const expectation = [
+      const sentData = [
         {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          'month_param': '01',
+          'city_api_id': 32,
         },
         {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
+          'month_param': '12',
+          'city_api_id': 32,
         }
       ];
 
-      const data = await fakeRequest(app)
-        .get('/animals')
+      await fakeRequest(app)
+        .post('/api/user_profile')
+        .send(sentData[0])
+        .set('Authorization', token)
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+      await fakeRequest(app)
+        .post('/api/user_profile')
+        .send(sentData[1])
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const data = await fakeRequest(app)
+        .get('/api/user_profile')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      console.log(data);
+      expect(data.body).toEqual([
+        {
+          'id': 2,
+          'month_param': 1,
+          'city_api_id': 32,
+          'owner_id': 2
+        },
+        {
+          'id': 3,
+          'month_param': 12,
+          'city_api_id': 32,
+          'owner_id': 2
+        }
+      ]);
+    });
+
+    test('deletes saved month/city id from /user_profile', async() => {
+
+      const expectation =
+      {
+        'id': 3,
+        'month_param': 12,
+        'city_api_id': 32,
+        'owner_id': 2
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/api/user_profile/3')
+        .send(expectation)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual("");
     });
   });
 });
