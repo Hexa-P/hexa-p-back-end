@@ -2,6 +2,7 @@ const client = require('../lib/client');
 // import our seed data:
 const temps = require('./temps.js');
 const usersData = require('./users.js');
+const userProfile = require('./user-profile.js');
 const { getEmoji } = require('../lib/emoji.js');
 
 run();
@@ -25,6 +26,17 @@ async function run() {
     const user = users[0].rows[0];
 
     await Promise.all(
+      userProfile.map(profile => {
+        return client.query(`
+                      INSERT INTO user_profile (month_param, city_api_id, owner_id)
+                      VALUES ($1, $2, $3)
+                      RETURNING *;
+                  `,
+        [profile.month_param, profile.city_api_id, user.id]);
+      })
+    );
+
+    await Promise.all(
       temps.map(pdx => {
         return client.query(`
                     INSERT INTO temps (year, january, february, march, april, may, june, july, august, september, october, november, december, annual)
@@ -33,7 +45,6 @@ async function run() {
         [pdx.year, pdx.january, pdx.february, pdx.march, pdx.april, pdx.may, pdx.june, pdx.july, pdx.august, pdx.september, pdx.october, pdx.november, pdx.december, pdx.annual]);
       })
     );
-
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
