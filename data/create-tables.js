@@ -24,6 +24,7 @@ async function run() {
                 );
                 CREATE TABLE user_profile (
                     id SERIAL PRIMARY KEY NOT NULL,
+                    city VARCHAR(512) NOT NULL,
                     month_param VARCHAR(256) NOT NULL,
                     city_api_id INTEGER NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
