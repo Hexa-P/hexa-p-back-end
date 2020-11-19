@@ -67,13 +67,13 @@ describe('app routes', () => {
       expect(data.body).toEqual([
         {
           'id': 2,
-          'month_param': 1,
+          'month_param': '01',
           'city_api_id': 32,
           'owner_id': 2
         },
         {
           'id': 3,
-          'month_param': 12,
+          'month_param': '12',
           'city_api_id': 32,
           'owner_id': 2
         }
