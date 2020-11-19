@@ -64,7 +64,6 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      console.log(data);
       expect(data.body).toEqual([
         {
           'id': 2,
