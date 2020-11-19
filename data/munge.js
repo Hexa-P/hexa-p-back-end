@@ -1,17 +1,13 @@
 const moment = require('moment');
 
-function mungeTemps(temp_data, month_param) {
+function mungeTemps(temp_data) {
   return {
     city_api_id: temp_data.city.id,
     name: temp_data.city.properties.name,
-    month: Object.keys(temp_data.data)
-      .filter(key => key.slice(-2) === month_param)
-      .reduce((obj, key) => {
-        obj[key] = temp_data.data[key];
-        return obj;
-      }, {}),
+    month: temp_data.data
   };
 }
+
 function mungeCities(city_data) {
   return city_data.features.map((feature) => { return {
     city_api_id: feature.id,
@@ -20,6 +16,7 @@ function mungeCities(city_data) {
   };
   });
 }
+
 function mungeRcpData(future_temp, month_param) {
   const temps = mungeFutureAzaveaTempData(future_temp.data);
   console.log(temps);
