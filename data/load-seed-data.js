@@ -28,8 +28,8 @@ async function run() {
     await Promise.all(
       userProfile.map(profile => {
         return client.query(`
-                      INSERT INTO user_profile (month_param, city_api_id, fav_url, owner_id)
-                      VALUES ($1, $2, $3, $4)
+                      INSERT INTO user_profile (month_param, city_api_id, owner_id)
+                      VALUES ($1, $2, $3)
                       RETURNING *;
                   `,
         [profile.month_param, profile.city_api_id, profile.fav_url, user.id]);

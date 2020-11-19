@@ -21,7 +21,6 @@ async function run() {
                     id SERIAL PRIMARY KEY NOT NULL,
                     month_param VARCHAR(256) NOT NULL,
                     city_api_id INTEGER NOT NULL,
-                    fav_url VARCHAR(256) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
                 );         
                 CREATE TABLE temps (
