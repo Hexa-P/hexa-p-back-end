@@ -35,10 +35,12 @@ describe('app routes', () => {
 
       const sentData = [
         {
+          'city': 'Portland',
           'month_param': '01',
           'city_api_id': 32,
         },
         {
+          'city': 'Portland',
           'month_param': '12',
           'city_api_id': 32,
         }
@@ -67,12 +69,14 @@ describe('app routes', () => {
       expect(data.body).toEqual([
         {
           'id': 2,
+          'city': 'Portland',
           'month_param': '01',
           'city_api_id': 32,
           'owner_id': 2
         },
         {
           'id': 3,
+          'city': 'Portland',
           'month_param': '12',
           'city_api_id': 32,
           'owner_id': 2
