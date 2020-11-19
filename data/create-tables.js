@@ -17,6 +17,11 @@ async function run() {
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );
+                CREATE TABLE fav_url (
+                    id SERIAL PRIMARY KEY,
+                    fav_url VARCHAR(512) NOT NULL,
+                    owner_id INTEGER NOT NULL REFERENCES users(id)
+                );
                 CREATE TABLE user_profile (
                     id SERIAL PRIMARY KEY NOT NULL,
                     month_param VARCHAR(256) NOT NULL,
