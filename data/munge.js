@@ -34,10 +34,17 @@ function mungeRcpData(future_temp, month_param) {
       }, {}),
   };
 }
+function mungeArticles(articles) {
+  return articles.articles.map((article) => { return {
+    url: article.url,
+  };
+  });
+}
 module.exports = {
   mungeTemps,
   mungeCities,
-  mungeRcpData
+  mungeRcpData,
+  mungeArticles
 };
 
 function mungeFutureAzaveaTempData(data) {
