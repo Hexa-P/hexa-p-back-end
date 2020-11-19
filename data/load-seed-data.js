@@ -3,7 +3,9 @@ const client = require('../lib/client');
 const temps = require('./temps.js');
 const usersData = require('./users.js');
 const userProfile = require('./user-profile.js');
+const favUrl = require('./fav-url.js');
 const { getEmoji } = require('../lib/emoji.js');
+const request = require('superagent');
 
 run();
 
@@ -26,13 +28,24 @@ async function run() {
     const user = users[0].rows[0];
 
     await Promise.all(
+      favUrl.map(fav => {
+        return client.query(`
+                      INSERT INTO fav_url (fav_url, owner_id)
+                      VALUES ($1, $2)
+                      RETURNING *;
+                  `,
+        [fav.fav_url, user.id]);
+      })
+    );
+
+    await Promise.all(
       userProfile.map(profile => {
         return client.query(`
                       INSERT INTO user_profile (month_param, city_api_id, owner_id)
                       VALUES ($1, $2, $3)
                       RETURNING *;
                   `,
-        [profile.month_param, profile.city_api_id, profile.fav_url, user.id]);
+        [profile.month_param, profile.city_api_id, user.id]);
       })
     );
 
