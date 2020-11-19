@@ -37,10 +37,12 @@ describe('app routes', () => {
         {
           'month_param': '01',
           'city_api_id': 32,
+          'fav_url': 'thisismyfavurl@urlfavs.com'
         },
         {
           'month_param': '12',
           'city_api_id': 32,
+          'fav_url': 'thisisalsomyfavurl@urlfavs2.com'
         }
       ];
 
@@ -69,12 +71,14 @@ describe('app routes', () => {
           'id': 2,
           'month_param': '01',
           'city_api_id': 32,
+          'fav_url': 'thisismyfavurl@urlfavs.com',
           'owner_id': 2
         },
         {
           'id': 3,
           'month_param': '12',
           'city_api_id': 32,
+          'fav_url': 'thisisalsomyfavurl@urlfavs2.com',
           'owner_id': 2
         }
       ]);
