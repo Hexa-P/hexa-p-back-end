@@ -6,8 +6,11 @@ function mungeTemps(temp_data, month_param) {
     name: temp_data.city.properties.name,
     month: Object.keys(temp_data.data)
       .filter(key => key.slice(-2) === month_param)
+      // REDUCE! WWWOOOAH!! If it matters, you can usually do filter inside your reduce too to save an extra time through the array:
       .reduce((obj, key) => {
-        obj[key] = temp_data.data[key];
+        if(key.slice(-2) === month_param) {
+          obj[key] = temp_data.data[key];
+        }
         return obj;
       }, {}),
   };
@@ -20,6 +23,7 @@ function mungeCities(city_data) {
   };
   });
 }
+
 function mungeRcpData(future_temp, month_param) {
   const temps = mungeFutureAzaveaTempData(future_temp.data);
   console.log(temps);
@@ -40,13 +44,8 @@ function mungeArticles(articles) {
   };
   });
 }
-module.exports = {
-  mungeTemps,
-  mungeCities,
-  mungeRcpData,
-  mungeArticles
-};
 
+// geeze, now this is some grade-a, real-world munging right here
 function mungeFutureAzaveaTempData(data) {
   return Object.keys(data)
     // Get all of the year strings out of the data, e.g. '2009'
@@ -86,6 +85,7 @@ function mungeFutureAzaveaTempData(data) {
           return acc;
         }, { sum: 0, total: 0 });
         // This actually calculates the average from the average objects and converts from Kelvin to Fahrenheit. 
+        // seems like some of these numbers should be named constants, for clarity of intention
         const tasmaxAvg = 1.8 * (tasmaxAvgObj.sum / tasmaxAvgObj.total - 273.15) + 32;
         const tasminAvg = 1.8 * (tasminAvgObj.sum / tasminAvgObj.total - 273.15) + 32;
         const tasAvg = (tasmaxAvg + tasminAvg) / 2;
@@ -99,3 +99,10 @@ function mungeFutureAzaveaTempData(data) {
       return dataObj;
     }, {});
 }
+
+module.exports = {
+  mungeTemps,
+  mungeCities,
+  mungeRcpData,
+  mungeArticles
+};
